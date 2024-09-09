@@ -1,0 +1,107 @@
+.modal-background{
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(200, 200, 200, 0.8);;
+    z-index: 1000;
+    position: fixed;
+
+    .modal-overlay{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #f1f1f1;
+        padding: 15px 30px;
+        border-radius: 10px;
+        max-width: 500px;
+        min-width: 400px;
+        box-shadow: 0.4px 0.8px 0.8px hsl(0deg 0% 0% / 0.49);
+    }
+
+    .modal-header{
+        display: flex;
+        justify-content: flex-end;
+
+        #close-modal{
+            border: none;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .modal-body{
+
+        h1{
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+            border-bottom: 1px grey solid;
+        }
+
+        h2{
+            font-size: 20px;
+            text-align: center;
+            strong{
+                color: #6aaa64;
+            }
+        }
+
+        #word-attempts{
+            margin-top: 30px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+
+            h3{
+                font-weight: bold;
+                font-size: 20px;
+            }
+
+            .gussed-word{
+                text-align: center;
+                background-color: grey;
+                color: white;
+                font-weight: bold;
+                margin: 10px;
+                border: 1px solid black;
+                font-size: 20px;
+            }
+
+            #show-attempts{
+                font-size: 15px;
+                border-bottom: 1px solid grey;
+            }  
+        }
+
+        #session-table{    
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
+
+            legend{
+                font-size: 20px;
+            }
+
+            tr > .stat-name{
+                font-size: 15px;
+                padding: 5px;
+                text-align: center;
+                text-decoration: underline;
+                border-top: 1px solid black;
+                border-right: 1px solid black;
+                border-left: 1px solid black;
+            }
+            tr > .stat-value{
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+                border-bottom: 1px solid black;
+                font-size: 20px;
+            }
+        }
+
+        #modal-bottom{
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

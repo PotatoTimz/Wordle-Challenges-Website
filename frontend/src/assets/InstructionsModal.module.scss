@@ -1,0 +1,124 @@
+$correct-color: #6aaa64;
+$partly-correct-color: #c9b458;
+$incorrect-color: #787c7e;
+$no-attempt-color: white;
+
+.modal-background{
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(200, 200, 200, 0.8);;
+    z-index: 1000;
+    position: fixed;
+
+    .modal-overlay{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #f1f1f1;
+        padding: 15px 30px;
+        border-radius: 10px;
+        max-width: 500px;
+        min-width: 400px;
+        box-shadow: 0.4px 0.8px 0.8px hsl(0deg 0% 0% / 0.49);
+    
+        .modal-header{
+            display: flex;
+            justify-content: flex-end;
+
+            #close-modal{
+                border: none;
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+        }
+        
+        .modal-body{
+            margin-right: 15px;
+
+            h1{
+                font-weight: bold;
+                font-size: 35px;
+            }
+
+            h2{
+                margin-top: 0px;
+                color: gray;
+                font-size: 25px;
+            }
+
+            h3{
+                font-weight: bold;
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            ul{
+                margin-top: 15px;
+                margin-bottom: 15px;
+                font-size: 15px;
+            }
+
+            .example-row{
+                display: flex;
+
+                .letter{
+                    height: 40px;
+                    width: 40px;
+                    margin-left: 0px;
+                    text-align: center;
+                    line-height: 40px;
+                
+                    font-size:25px;
+                    font-weight: bold;
+                    border: 1px solid grey;
+                    border-width: thin;
+                }
+
+                #example-W{
+                    animation: flip-letter-board-correct 0.5s ease forwards;
+                }
+                
+                #example-I{
+                    animation: flip-letter-board-partly-correct 0.5s ease forwards;
+                }
+                
+                #example-U{
+                    animation: flip-letter-board-incorrect 0.5s ease forwards;
+                }
+            }
+        }
+    }
+
+    
+}
+
+@mixin flip-letter-board($color, $name){
+    @keyframes flip-letter-board-#{$name} {
+        0%{
+            transform: rotateX(0deg);
+            border-color: black;
+            background-color: white;
+        }
+        45%{
+            transform: rotateX(90deg);
+            border-color: black;
+            background-color: white;
+        }
+        55%{
+            transform: rotateX(90deg);
+            border-color: $color;
+            background: $color;
+        }
+        100%{
+            transform: rotateX(0deg);
+            border-color: $color;
+            background: $color;
+            color: white;
+        }
+    }
+}
+
+@include flip-letter-board($correct-color, "correct");
+@include flip-letter-board($partly-correct-color, "partly-correct");
+@include flip-letter-board($incorrect-color, "incorrect");
