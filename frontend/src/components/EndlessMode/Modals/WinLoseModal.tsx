@@ -1,6 +1,6 @@
-import App, { AppContext } from "../../App";
+import App, { AppContext } from "../../../App";
 import { useContext } from "react";
-import { SessionInfo } from "../Interfaces/ProviderInfo";
+import { SessionInfo } from "../../WordleGame/Interfaces/ProviderInfo";
 import WLModal from "../../assets/WinLoseModal.module.scss";
 
 //import WLModal from "../assets/WinLoseModal.module.scss";

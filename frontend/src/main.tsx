@@ -4,9 +4,12 @@ import App from "./App";
 import "./assets/InstructionsModal.module.scss";
 import "./assets/MainScreen.scss";
 import "bootstrap/dist/css/bootstrap.css";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

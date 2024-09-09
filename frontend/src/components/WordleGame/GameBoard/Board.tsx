@@ -1,5 +1,5 @@
 import Letter from "./Letter";
-import { AppContext } from "../../App";
+import { AppContext } from "../../EndlessMode/EndlessWordle";
 import { useContext, useEffect } from "react";
 
 function Board() {

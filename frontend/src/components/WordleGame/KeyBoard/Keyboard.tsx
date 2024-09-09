@@ -1,6 +1,6 @@
 import Key from "./Key";
 import { useCallback, useContext, useEffect } from "react";
-import { AppContext } from "../../App";
+import { AppContext } from "../../EndlessMode/EndlessWordle";
 
 function Keyboard() {
   const { addLetterToBoard, eraseLetter, attemptGuess, disableInput } =

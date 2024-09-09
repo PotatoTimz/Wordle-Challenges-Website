@@ -1,4 +1,4 @@
-import wordBank from "../../assets/valid-wordle-words.txt";
+import wordBank from "../../../assets/valid-wordle-words.txt";
 
 const fetchValidWords = async () => {
   let wordSet;
