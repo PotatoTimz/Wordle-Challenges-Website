@@ -19,7 +19,7 @@ app.use(
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("test");
+  res.send("Wordle Challenges API");
 });
 
 app.use("/api/challenge", require("./routes/challengeRoutes"));
