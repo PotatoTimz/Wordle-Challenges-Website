@@ -4,7 +4,21 @@ const Challenge = require("../models/challengeModel");
 const getAllChallenges = asyncHandler(async (req, res) => {
   try {
     const challenge = await Challenge.find({});
-    res.status(200).json(challenge);
+
+    if (req.query.keyword === undefined) {
+      res.status(200).json(challenge);
+    }
+
+    let queryPassChallenges = [];
+    challenge.forEach((challenge) => {
+      if (
+        challenge.name.toLowerCase().includes(req.query.keyword.toLowerCase())
+      ) {
+        queryPassChallenges.push(challenge);
+      }
+    });
+
+    res.status(200).json(queryPassChallenges);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });

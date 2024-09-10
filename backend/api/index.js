@@ -7,7 +7,7 @@ const connectDB = require("./config/db");
 const Challenge = require("./models/challengeModel");
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 connectDB();
 
