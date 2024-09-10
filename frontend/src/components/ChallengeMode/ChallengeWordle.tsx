@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import {
   ChallengeData,
   defaultChallengeData,
-} from "./Interfaces/ChallengeDataInterface";
+} from "../Interfaces/ChallengeDataInterface";
 import ChallengeInfo from "./ChallengeInfo/ChallengeInfo";
 import Game from "./Game/Game";
 
