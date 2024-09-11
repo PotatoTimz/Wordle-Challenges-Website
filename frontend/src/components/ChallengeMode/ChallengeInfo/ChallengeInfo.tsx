@@ -1,21 +1,51 @@
+import Container from "react-bootstrap/esm/Container";
 import { ChallengeData } from "../../Interfaces/ChallengeDataInterface";
+import { Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ChallengeContext } from "../ChallengeWordle";
 
-interface Props {
-  challengeData: ChallengeData;
-  challengeProgression: number;
-  challengeLength: number;
-}
+function ChallengeInfo() {
+  const navigate = useNavigate();
+  const { challengeData, challengeProgression } = useContext(ChallengeContext);
 
-function ChallengeInfo(props: Props) {
   return (
-    <div>
-      <h1>{props.challengeData.name}</h1>
-      <h1>Created by: {props.challengeData.creator}</h1>
-      <div>
-        {props.challengeProgression + 1}/{props.challengeLength}
+    <>
+      <div className="row justify-content-center ">
+        <Col
+          lg={4}
+          md={6}
+          sm={7}
+          xs={10}
+          className="mt-2 bg-light rounded border border-secondary"
+        >
+          <h1 className="fs-3 underlined text-center">
+            <u>{challengeData.name}</u>
+          </h1>
+          <h1 className="fs-6 text-center">
+            Created by: {challengeData.creator}
+          </h1>
+          <div className="mt-4 mb-1 fs-6 text-center">
+            {challengeData.description}
+          </div>
+        </Col>
       </div>
-      <div>Description: {props.challengeData.description}</div>
-    </div>
+      <div className="row justify-content-center ">
+        <Col lg={4} md={6} sm={7} xs={10} className="">
+          <div className="row justify-content-between">
+            <div className="col-2 fs-6 mt-1 text-center">
+              {challengeProgression + 1}/{challengeData.words.length}
+            </div>
+            <div
+              onClick={() => navigate(0)}
+              className="col-3 fs-6 mt-1 text-center"
+            >
+              <u>Reset Challenge</u>
+            </div>
+          </div>
+        </Col>
+      </div>
+    </>
   );
 }
 

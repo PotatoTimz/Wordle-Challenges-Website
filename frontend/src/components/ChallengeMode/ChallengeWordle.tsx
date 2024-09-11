@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   ChallengeData,
@@ -8,6 +8,14 @@ import {
 import ChallengeInfo from "./ChallengeInfo/ChallengeInfo";
 import Game from "./Game/Game";
 import NextLevelModal from "./Modals/NextLevelModal";
+import {
+  ChallengeDataContext,
+  defaultChallengeDataContext,
+} from "../Interfaces/ChallangeContextInterface";
+
+export const ChallengeContext = createContext<ChallengeDataContext>(
+  defaultChallengeDataContext
+);
 
 function ChallengeWordle() {
   const { id } = useParams();
@@ -16,6 +24,11 @@ function ChallengeWordle() {
     useState<ChallengeData>(defaultChallengeData);
   const [challengeProgression, setChallengeProgression] = useState<number>(0);
 
+  //Modals
+  const [levelCompleteModal, setLevelCompleteModal] = useState<boolean>(false);
+
+  const toggleLevelCompleteModal = () =>
+    setLevelCompleteModal(!levelCompleteModal);
   const completeLevel = () => {
     setChallengeProgression(challengeProgression + 1);
   };
@@ -35,23 +48,20 @@ function ChallengeWordle() {
 
   return (
     <>
-      <ChallengeInfo
-        challengeData={challengeData}
-        challengeProgression={challengeProgression}
-        challengeLength={challengeData.words.length}
-      />
-      <Game
-        progression={challengeProgression}
-        answerList={challengeData.words}
-        completeLevel={completeLevel}
-        failChallenge={failChallenge}
-      />
-      <NextLevelModal
-        challengeProgress={challengeProgression}
-        challengeLength={challengeData.words.length}
-        challengeName={challengeData.name}
-        completeLevel={completeLevel}
-      ></NextLevelModal>
+      <ChallengeContext.Provider
+        value={{ challengeData, challengeProgression }}
+      >
+        <ChallengeInfo />
+        <Game
+          toggleLevelCompleteModal={toggleLevelCompleteModal}
+          failChallenge={failChallenge}
+        />
+        <NextLevelModal
+          completeLevel={completeLevel}
+          isOpen={levelCompleteModal}
+          toggleModal={toggleLevelCompleteModal}
+        ></NextLevelModal>
+      </ChallengeContext.Provider>
     </>
   );
 }

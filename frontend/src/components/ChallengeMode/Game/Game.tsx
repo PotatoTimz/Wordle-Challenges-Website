@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react";
-import { defaultWordleBoard } from "../../WordleGame/Interfaces/ProviderInfo";
+import { createContext, useContext, useEffect, useState } from "react";
+import {
+  defaultWordleBoard,
+  WordleBoardContext,
+} from "../../WordleGame/Interfaces/ProviderInfo";
 import fetchValidWords from "../../WordleGame/Hooks/FetchWordBank";
 import createWordle from "../../WordleGame/Hooks/CreateWordle";
-import { AppContext } from "../../EndlessMode/EndlessWordle";
 import Board from "../../WordleGame/GameBoard/Board";
 import Keyboard from "../../WordleGame/KeyBoard/Keyboard";
+import { AppContext } from "../../EndlessMode/EndlessWordle";
+import { ChallengeContext } from "../ChallengeWordle";
 
 interface Props {
-  progression: number;
-  answerList: Array<string>;
-  completeLevel: () => void;
+  toggleLevelCompleteModal: () => void;
   failChallenge: () => void;
 }
 
 function Game(props: Props) {
+  const { challengeData, challengeProgression } = useContext(ChallengeContext);
+
   // Word Bank and Answer
   const [wordSet, setWordSet] = useState<Set<string>>(
     defaultWordleBoard.wordSet
@@ -31,14 +35,16 @@ function Game(props: Props) {
     fetchValidWords().then((wordList: any) => {
       setWordSet((wordSet) => wordList);
     });
-    console.log(props.answerList[props.progression].toUpperCase());
-    setAnswer(props.answerList[props.progression].toUpperCase());
+    console.log(challengeData.words[challengeProgression].toUpperCase());
+    setAnswer(challengeData.words[challengeProgression].toUpperCase());
   }, [props]);
 
   const onWin = () => {
     console.log("win");
-    props.completeLevel();
-    resetWordle();
+    setTimeout(() => {
+      props.toggleLevelCompleteModal();
+      resetWordle();
+    }, 2000);
   };
 
   const onLose = () => {
