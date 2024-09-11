@@ -1,7 +1,8 @@
-import App, { AppContext } from "../../../App";
 import { useContext } from "react";
 import { SessionInfo } from "../../WordleGame/Interfaces/ProviderInfo";
-import WLModal from "../../assets/WinLoseModal.module.scss";
+// @ts-ignore
+import WLModal from "../../../assets/scss/WinLoseModal.module.scss";
+import { AppContext } from "../EndlessWordle";
 
 //import WLModal from "../assets/WinLoseModal.module.scss";
 

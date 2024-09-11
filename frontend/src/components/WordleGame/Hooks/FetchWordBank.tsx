@@ -1,3 +1,4 @@
+// @ts-ignore
 import wordBank from "../../../assets/valid-wordle-words.txt";
 
 const fetchValidWords = async () => {

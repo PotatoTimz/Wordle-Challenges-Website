@@ -1,4 +1,5 @@
-import Instructions from "../../assets/InstructionsModal.module.scss";
+// @ts-ignore
+import Instructions from "../../assets/scss/InstructionsModal.module.scss";
 
 interface Props {
   toggle: () => void;

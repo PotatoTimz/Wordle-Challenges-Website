@@ -24,7 +24,7 @@ export interface WordleBoardContext {
   answer: string;
   disableInput: boolean;
   setDisableInput: (toggle: boolean) => void;
-  resetGameTrigger: boolean;
+  resetGameTrigger?: boolean;
 }
 
 export const defaultWordleBoard = {

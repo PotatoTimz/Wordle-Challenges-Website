@@ -11,8 +11,10 @@ import { AppContext } from "../../EndlessMode/EndlessWordle";
 import { ChallengeContext } from "../ChallengeWordle";
 
 interface Props {
+  reset: boolean;
   toggleLevelCompleteModal: () => void;
-  failChallenge: () => void;
+  toggleGameOverModal: () => void;
+  toggleChallangeCompleteModal: () => void;
 }
 
 function Game(props: Props) {
@@ -23,9 +25,6 @@ function Game(props: Props) {
     defaultWordleBoard.wordSet
   );
   const [answer, setAnswer] = useState<string>("BOARD");
-
-  // Session Info
-  const [resetGameTrigger, setResetGameTrigger] = useState<boolean>(false);
 
   // Enable/Disable functions toggle
   const [disableInput, setDisableInput] = useState<boolean>(false);
@@ -39,16 +38,33 @@ function Game(props: Props) {
     setAnswer(challengeData.words[challengeProgression].toUpperCase());
   }, [props]);
 
+  useEffect(() => {
+    console.log("reset");
+    resetWordle();
+    setDisableInput(false);
+  }, [props.reset]);
+
   const onWin = () => {
     console.log("win");
-    setTimeout(() => {
-      props.toggleLevelCompleteModal();
-      resetWordle();
-    }, 2000);
+    setDisableInput(true);
+    if (challengeProgression < challengeData.words.length - 1) {
+      setTimeout(() => {
+        props.toggleLevelCompleteModal();
+      }, 1500);
+    } else {
+      setTimeout(() => {
+        props.toggleChallangeCompleteModal();
+      }, 1500);
+      console.log("complete challenge");
+    }
   };
 
   const onLose = () => {
     console.log("lose");
+    setDisableInput(true);
+    setTimeout(() => {
+      props.toggleGameOverModal();
+    }, 1500);
   };
 
   // Creates Game State
@@ -82,24 +98,12 @@ function Game(props: Props) {
           answer,
           disableInput,
           setDisableInput,
-          resetGameTrigger,
           validAttempt,
           setValidAttempt,
         }}
       >
         <Board />
         <Keyboard />
-        {/* <div className="d-flex justify-content-center">
-          {gameComplete && (
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={resetGame}
-            >
-              Play Again!
-            </button>
-          )}
-        </div> */}
       </AppContext.Provider>
     </>
   );
