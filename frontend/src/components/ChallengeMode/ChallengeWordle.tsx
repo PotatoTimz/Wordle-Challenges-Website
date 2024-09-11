@@ -7,6 +7,7 @@ import {
 } from "../Interfaces/ChallengeDataInterface";
 import ChallengeInfo from "./ChallengeInfo/ChallengeInfo";
 import Game from "./Game/Game";
+import NextLevelModal from "./Modals/NextLevelModal";
 
 function ChallengeWordle() {
   const { id } = useParams();
@@ -35,17 +36,22 @@ function ChallengeWordle() {
   return (
     <>
       <ChallengeInfo
+        challengeData={challengeData}
         challengeProgression={challengeProgression}
         challengeLength={challengeData.words.length}
-        creator={challengeData.creator}
-        description={challengeData.description}
-      ></ChallengeInfo>
+      />
       <Game
         progression={challengeProgression}
         answerList={challengeData.words}
         completeLevel={completeLevel}
         failChallenge={failChallenge}
-      ></Game>
+      />
+      <NextLevelModal
+        challengeProgress={challengeProgression}
+        challengeLength={challengeData.words.length}
+        challengeName={challengeData.name}
+        completeLevel={completeLevel}
+      ></NextLevelModal>
     </>
   );
 }
