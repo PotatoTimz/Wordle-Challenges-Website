@@ -3,22 +3,16 @@ const Challenge = require("../models/challengeModel");
 
 const getAllChallenges = asyncHandler(async (req, res) => {
   try {
-    const challenge = await Challenge.find({});
+    let challenges = await Challenge.find({});
+    const keyword = req.query.keyword || "";
 
-    if (req.query.keyword === undefined) {
-      res.status(200).json(challenge);
-    }
-
-    let queryPassChallenges = [];
-    challenge.forEach((challenge) => {
-      if (
-        challenge.name.toLowerCase().includes(req.query.keyword.toLowerCase())
-      ) {
-        queryPassChallenges.push(challenge);
-      }
-    });
-
-    res.status(200).json(queryPassChallenges);
+    res.status(200).json(
+      challenges.filter((challenge) => {
+        if (challenge.name.toLowerCase().includes(keyword.toLowerCase())) {
+          return true;
+        }
+      })
+    );
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });

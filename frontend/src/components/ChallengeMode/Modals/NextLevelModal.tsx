@@ -4,11 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { ChallengeContext } from "../ChallengeWordle";
 
 interface Props {
-  challengeProgress: number;
-  challengeLength: number;
-  challengeName: string;
   completeLevel: () => void;
-
   toggleModal: () => void;
   isOpen: boolean;
 }
