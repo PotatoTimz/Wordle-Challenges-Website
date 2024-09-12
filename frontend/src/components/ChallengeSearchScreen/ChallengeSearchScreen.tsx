@@ -3,26 +3,41 @@ import { ChallengeData } from "../Interfaces/ChallengeDataInterface";
 import { useEffect, useState } from "react";
 import SearchCard from "./SearchCard";
 import { Link } from "react-router-dom";
+import PageBar from "./PageBar";
 
 function SearchScreen() {
   const [challengeList, setChallengeList] = useState<Array<ChallengeData>>([]);
+  const [totalChallenges, setTotalChallenges] = useState<number>(0);
   const [searchKeyword, setKeyword] = useState<string>("");
 
-  const searchChallenge = () => {
+  // Pagiation
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const nextPage = () => {
+    setPageNumber(pageNumber + 1);
+  };
+  const previousPage = () => {
+    if (pageNumber != 1) {
+      setPageNumber(pageNumber - 1);
+    }
+  };
+  const pageLimit: number = 1;
+
+  const generateChallenge = () => {
     axios
       .get(
-        "https://wordle-challenges-website.vercel.app/api/challenge?keyword=" +
-          searchKeyword
+        `https://wordle-challenges-website.vercel.app/api/challenge?keyword=${searchKeyword}&page=${pageNumber}&limit=${pageLimit}`
       )
       .then((data) => {
         console.log(data);
-        setChallengeList(data.data);
+        setChallengeList(data.data.challenges);
+        setTotalChallenges(data.data.total);
       });
   };
 
   const clickEnter = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
-      searchChallenge();
+      generateChallenge();
+      setPageNumber(1);
     }
   };
 
@@ -34,12 +49,8 @@ function SearchScreen() {
   }, [clickEnter]);
 
   useEffect(() => {
-    axios
-      .get("https://wordle-challenges-website.vercel.app/api/challenge")
-      .then((data) => {
-        setChallengeList(data.data);
-      });
-  }, []);
+    generateChallenge();
+  }, [pageNumber]);
 
   return (
     <>
@@ -70,7 +81,10 @@ function SearchScreen() {
         ></input>
         <button
           className="btn btn-outline-secondary w-10"
-          onClick={searchChallenge}
+          onClick={() => {
+            generateChallenge();
+            setPageNumber(1);
+          }}
         >
           Search
         </button>
@@ -82,6 +96,14 @@ function SearchScreen() {
             return <SearchCard key={index} challenge={challenge} />;
           })}
         </div>
+
+        <PageBar
+          pageNumber={pageNumber}
+          totalChallenges={totalChallenges}
+          pageLimit={pageLimit}
+          nextPage={nextPage}
+          previousPage={previousPage}
+        />
       </div>
     </>
   );
