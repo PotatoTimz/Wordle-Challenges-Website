@@ -3,16 +3,17 @@ const Challenge = require("../models/challengeModel");
 
 const getAllChallenges = asyncHandler(async (req, res) => {
   try {
-    let challenges = await Challenge.find({});
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = 30;
     const keyword = req.query.keyword || "";
 
-    res.status(200).json(
-      challenges.filter((challenge) => {
-        if (challenge.name.toLowerCase().includes(keyword.toLowerCase())) {
-          return true;
-        }
-      })
-    );
+    let challenges = await Challenge.find({
+      name: { $regex: keyword, $options: "i" },
+    })
+      .skip(page * limit)
+      .limit(limit);
+
+    res.status(200).json(challenges);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
