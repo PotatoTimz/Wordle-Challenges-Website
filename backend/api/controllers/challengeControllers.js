@@ -4,7 +4,7 @@ const Challenge = require("../models/challengeModel");
 const getAllChallenges = asyncHandler(async (req, res) => {
   try {
     const page = parseInt(req.query.page) - 1 || 0;
-    const limit = 30;
+    const limit = parseInt(req.query.limit) || 3;
     const keyword = req.query.keyword || "";
 
     let challenges = await Challenge.find({
@@ -13,7 +13,16 @@ const getAllChallenges = asyncHandler(async (req, res) => {
       .skip(page * limit)
       .limit(limit);
 
-    res.status(200).json(challenges);
+    const total = await Challenge.countDocuments({
+      name: { $regex: keyword, $options: "i" },
+    });
+
+    const response = {
+      challenges,
+      total,
+    };
+
+    res.status(200).json(response);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
