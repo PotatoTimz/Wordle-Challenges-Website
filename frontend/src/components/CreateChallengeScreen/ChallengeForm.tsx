@@ -38,11 +38,27 @@ function ChallengeForm() {
     let errorFlag = true;
     console.log("validating...");
 
+    // validate creator name
+
     // validate challenge name
     if (challengeName === "") {
-      console.log("please enter a challenge name");
+      setErrorMessages({
+        ...formErrorMessages,
+        challengeName: "You must enter a name for your challenge.",
+      });
       errorFlag = false;
+    } else if (challengeName.length <= 5 || challengeName.length > 25) {
+      setErrorMessages({
+        ...formErrorMessages,
+        challengeName: "Your challenge's name must be between 5 and 26",
+      });
+      errorFlag = false;
+    } else {
+      // Valid challenge name
+      setErrorMessages({ ...formErrorMessages, challengeName: "" });
     }
+
+    // validate description
 
     // validate levels
     challengeWords.forEach((word) => {
