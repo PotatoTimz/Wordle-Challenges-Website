@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import fetchValidWords from "../WordleGame/Hooks/FetchWordBank";
+import { useNavigate } from "react-router-dom";
 
 function ChallengeForm() {
   const [creatorName, setCreatorName] = useState<string>("");
@@ -8,7 +9,23 @@ function ChallengeForm() {
   const [description, setDescription] = useState<string>("");
   const [challengeWords, setChallengeWords] = useState<Array<string>>(["", ""]);
 
+  const [formInfo, setformInfo] = useState({
+    creatorName: "",
+    challengeName: "",
+    description: "",
+    challengeWords: ["", ""],
+  });
+
+  const [formErrorMessages, setErrorMessages] = useState({
+    creatorName: "",
+    challengeName: "",
+    description: "",
+    challengeWords: ["", ""],
+  });
+
   const [wordSet, setWordSet] = useState<Set<string>>(new Set());
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchValidWords().then((wordList: any) => {
@@ -44,6 +61,10 @@ function ChallengeForm() {
         description: description,
         words: challengeWords,
       });
+
+      setTimeout(() => {
+        navigate("/challenge", {});
+      }, 500);
     } else {
       console.log("invalid input! Exiting...");
     }
@@ -68,6 +89,14 @@ function ChallengeForm() {
   return (
     <div className="row justify-content-center my-5">
       <div className="col-lg-6">
+        <div className="text-end">
+          <i
+            onClick={() => {
+              navigate("/challenge", {});
+            }}
+            className="bi bi-x fs-4"
+          ></i>
+        </div>
         <form onSubmit={createChallenge}>
           <div className="form-group m-3">
             <label className="mb-2">Creator Name</label>
