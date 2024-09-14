@@ -20,7 +20,7 @@ function SearchScreen() {
       setPageNumber(pageNumber - 1);
     }
   };
-  const pageLimit: number = 1;
+  const pageLimit: number = 12;
 
   const generateChallenge = () => {
     axios
@@ -90,7 +90,7 @@ function SearchScreen() {
         </button>
       </div>
 
-      <div className="row justify-content-center">
+      <div className="row m-auto justify-content-center">
         <div id="challengeQuery" className="col-11 justify-content-center row">
           {challengeList.map((challenge: ChallengeData, index) => {
             return <SearchCard key={index} challenge={challenge} />;
