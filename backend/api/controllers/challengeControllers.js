@@ -44,17 +44,8 @@ const postChallenge = asyncHandler(async (req, res) => {
   try {
     const challenge = await Challenge.create(req.body);
     res.status(200).json({ challenge });
-    console.log("post successfull");
   } catch (error) {
-    if (error.name === "ValidationError") {
-      let errors = {};
-
-      Object.keys(error.errors).forEach((key) => {
-        errors[key] = error.errors[key].message;
-      });
-
-      return res.status(400).send(errors);
-    }
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 });
