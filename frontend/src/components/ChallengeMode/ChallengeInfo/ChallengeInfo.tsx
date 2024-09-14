@@ -11,7 +11,7 @@ function ChallengeInfo() {
 
   return (
     <>
-      <div className="row m-auto justify-content-center ">
+      <div className="row justify-content-center ">
         <Col
           lg={4}
           md={6}
@@ -30,19 +30,17 @@ function ChallengeInfo() {
           </div>
         </Col>
       </div>
-      <div className="row m-auto justify-content-center ">
+      <div className="row justify-content-center ">
         <Col lg={4} md={6} sm={7} xs={10} className="">
           <div className="row justify-content-between">
-            <div className="col-1 fs-6 mt-1 text-center">
+            <div className="col-2 fs-6 mt-1 text-center">
               {challengeProgression + 1}/{challengeData.words.length}
             </div>
             <div
               onClick={() => navigate(0)}
-              className="col-1 fs-6 mt-1 text-center"
+              className="col-3 fs-6 mt-1 text-center"
             >
-              <u>
-                <i className="bi bi-arrow-clockwise"></i>
-              </u>
+              <u>Reset Challenge</u>
             </div>
           </div>
         </Col>

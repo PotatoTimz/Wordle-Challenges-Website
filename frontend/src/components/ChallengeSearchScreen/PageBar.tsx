@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
 
 interface Props {
   totalChallenges: number;
@@ -11,25 +10,29 @@ interface Props {
 
 function PageBar(props: Props) {
   const totalPages = Math.ceil(props.totalChallenges / props.pageLimit);
-  const pageBarLimit = 7;
+  const pageBarLimit = 5;
   const [pageNumbers, setPageNumbers] = useState<Array<number>>([]);
 
   const generatePageNumbers = () => {
     let numbers: Array<number> = [];
-    if (props.pageNumber <= Math.ceil(pageBarLimit / 2)) {
-      for (let i = 1; i <= Math.min(totalPages, pageBarLimit); i++) {
+    if (
+      props.pageNumber === 1 ||
+      props.pageNumber === 2 ||
+      props.pageNumber === 3
+    ) {
+      for (let i = 1; i < Math.min(totalPages + 1, 6); i++) {
         numbers.push(i);
       }
-    } else if (props.pageNumber >= totalPages - Math.floor(pageBarLimit / 2)) {
-      for (let i = totalPages - pageBarLimit + 1; i <= totalPages; i++) {
+    } else if (
+      props.pageNumber === totalPages ||
+      props.pageNumber === totalPages - 1 ||
+      props.pageNumber === totalPages - 2
+    ) {
+      for (let i = totalPages - 4; i < totalPages + 1; i++) {
         numbers.push(i);
       }
     } else {
-      for (
-        let i = props.pageNumber - Math.floor(pageBarLimit / 2);
-        i <= props.pageNumber + Math.floor(pageBarLimit / 2);
-        i++
-      ) {
+      for (let i = props.pageNumber; i < totalPages + 1; i++) {
         numbers.push(i);
       }
     }
@@ -42,35 +45,28 @@ function PageBar(props: Props) {
   }, [props.pageNumber, props.totalChallenges]);
 
   return (
-    <Col className={"justify-content-center row my-5"} lg={7} sm={10} xs={12}>
-      <button className="col border text-center" onClick={props.previousPage}>
-        <i className="bi bi-arrow-left fs-6"></i>
-      </button>
+    <div className={"justify-content-center row"}>
       {pageNumbers.map((number: number) => {
         return (
           <div
             key={number}
-            className={`col text-center border-top border-bottom px-6 fs-6 ${
-              number === props.pageNumber
-                ? "bg-light border font-weight-bold"
-                : ""
-            }`}
+            className={`col ${number === props.pageNumber ? "bg-info" : ""}`}
           >
             {number}
           </div>
         );
       })}
       <button
-        className="col border text-center"
         onClick={() => {
           if (props.pageNumber != totalPages) {
             props.nextPage();
           }
         }}
       >
-        <i className="bi bi-arrow-right fs-6"></i>
+        next
       </button>
-    </Col>
+      <button onClick={props.previousPage}>prev</button>
+    </div>
   );
 }
 
