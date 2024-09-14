@@ -1,10 +1,7 @@
 var fs = require("fs");
-var path = require("path");
-
-//console.log();
 
 const wordSet = fs
-  .readFileSync(path.join(process.cwd(), "assets", "valid-wordle-words.txt"))
+  .readFileSync("${__dirname}/assets/valid-wordle-words.txt")
   .toString("utf-8")
   .split("\n")
   .map((word) => {
