@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const fs = require("node:fs");
 
-const wordBank = require("../utilities/fetchWordBank");
+//const wordBank = require("../utilities/fetchWordBank");
 
 const challengeSchema = mongoose.Schema(
   {
@@ -28,12 +27,12 @@ const challengeSchema = mongoose.Schema(
         required: true,
         minLength: [5, "Each word entered must be 5 characters long"],
         maxLength: [5, "Each word entered must be 5 characters long"],
-        validate: {
-          validator: function (value) {
-            return wordBank.includes(value.toLowerCase());
-          },
-          message: (props) => `${props.value} is not a valid word`,
-        },
+        // validate: {
+        //   validator: function (value) {
+        //     return wordBank.includes(value.toLowerCase());
+        //   },
+        //   message: (props) => `${props.value} is not a valid word`,
+        // },
       },
     ],
   },
