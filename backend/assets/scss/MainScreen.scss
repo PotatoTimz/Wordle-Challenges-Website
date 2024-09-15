@@ -1,0 +1,243 @@
+$correct-color: #6aaa64;
+$partly-correct-color: #c9b458;
+$incorrect-color: #787c7e;
+$no-attempt-color: white;
+
+// Title Hud  
+.hud{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    border-bottom: 1px solid #d3d6da;
+
+    #game-title{
+        display: flex;  
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #help-button{
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        line-height: 50%;
+    
+        border: 3px solid black;
+        border-radius: 55%;
+        background-color: white;
+    
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+    }
+    
+    .title-flip-letter{
+        animation: flip-letter-title 2.5s linear forwards;
+        animation-delay: 0.2s;
+    }
+    
+}
+
+// Board
+#board{
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .guess{
+        display: flex;
+        justify-content: center;
+    }
+    
+    @mixin letter-attempt{
+        height: 70px;
+        width: 70px;
+        text-align: center;
+        line-height: 70px;
+        margin: 5px;
+        font-size: 35px;
+        font-weight: bold;
+        border-width: thin;
+
+        background-color: $no-attempt-color;
+        border: 1px solid #d7dadd;
+    }
+
+    .no-attempt-letter{
+        @include letter-attempt;
+    }
+
+    .incorrect-letter{
+        @include letter-attempt;
+        animation: flip-letter-board-incorrect 0.5s ease forwards;
+    }
+
+    .partlyCorrect-letter{
+        @include letter-attempt;
+        animation: flip-letter-board-partly-correct 0.5s ease forwards;
+    }
+
+    .correct-letter{
+        @include letter-attempt;
+        animation: flip-letter-board-correct 0.5s ease forwards;
+    }
+
+    .current-attempt{
+        border-color: black !important;
+    }
+    
+    @for $i from 0 through 4{
+        .boardcol-#{$i}{
+            animation-delay: $i * 0.2s;
+        }
+    }
+}
+
+// Keyboard
+#keyboard{
+    margin: 40px;
+
+    .keyboard-row{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    
+    .big-key{
+        background-color: #d3d6da;
+        border-radius: 10%;
+        margin-left: 4px;
+        margin-right: 4px;
+
+        height: 50px;
+        width: 100px;
+
+        text-align: center;
+        line-height: 50px;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    @mixin key{
+        background-color: #d3d6da;
+        border-radius: 10%;
+        margin-left: 4px;
+        margin-right: 4px;
+        
+        width: 50px;
+        height: 50px;
+
+        text-align: center;
+        line-height: 50px;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .key{
+        @include key;
+    }
+
+    .incorrect-key{
+        @include key;
+        animation: flip-letter-board-incorrect 0.5s ease forwards;
+        animation-delay: 1s;
+    }
+
+    .partlyCorrect-key{
+        @include key;
+        animation: flip-letter-board-partly-correct 0.5s ease forwards;
+        animation-delay: 1s;
+    }
+
+    .correct-key{
+        @include key;
+        animation: flip-letter-board-correct 0.5s ease forwards;
+        animation-delay: 1s;
+    }
+
+}
+
+/* Animations */
+.shake{
+    animation: shake 500ms ease forwards;
+    animation-delay: 0s !important;
+}
+
+.bounce{
+    animation: bounce 200ms ease forwards;
+    animation-delay: 0s !important;
+
+}
+
+@mixin flip-letter-board($color, $name){
+    @keyframes flip-letter-board-#{$name} {
+        0%{
+            transform: rotateX(0deg);
+            border-color: black;
+            background-color: white;
+        }
+        45%{
+            transform: rotateX(90deg);
+            border-color: black;
+            background-color: white;
+        }
+        55%{
+            transform: rotateX(90deg);
+            border-color: $color;
+            background: $color;
+        }
+        100%{
+            transform: rotateX(0deg);
+            border-color: $color;
+            background: $color;
+            color: white;
+        }
+    }
+}
+
+@include flip-letter-board($correct-color, "correct");
+@include flip-letter-board($partly-correct-color, "partly-correct");
+@include flip-letter-board($incorrect-color, "incorrect");
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes bounce{
+    0%{
+        transform: scale(1);
+        border-color: white;
+    }
+    50%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform:scale(1);
+        border-color: black;
+    }
+}
+
+@keyframes flip-letter-title{
+    30%, 100%{
+        transform: rotateY(360deg)
+    }
+}
