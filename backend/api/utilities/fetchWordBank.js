@@ -1,11 +1,8 @@
 var fs = require("fs");
 var path = require("path");
-var image = require("../../public/test.jfif");
 
 const wordSet = fs
-  .readFileSync(
-    path.join(process.cwd(), "backend/public/valid-wordle-words.txt")
-  )
+  .readFileSync(path.join(process.cwd(), "public/valid-wordle-words.txt"))
   .toString("utf-8")
   .split("\n")
   .map((word) => {
