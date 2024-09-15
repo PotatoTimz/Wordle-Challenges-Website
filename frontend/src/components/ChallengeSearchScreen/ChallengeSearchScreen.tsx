@@ -20,7 +20,7 @@ function SearchScreen() {
       setPageNumber(pageNumber - 1);
     }
   };
-  const pageLimit: number = 1;
+  const pageLimit: number = 12;
 
   const generateChallenge = () => {
     axios
@@ -53,59 +53,66 @@ function SearchScreen() {
   }, [pageNumber]);
 
   return (
-    <>
-      <h1 className="text-center fs-1 m-2 mb-4">Select a Challenge</h1>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <h1 className="text-center fs-1 m-2 mb-4">Select a Challenge</h1>
 
-      <Link
-        style={{ textDecoration: "none" }}
-        to={`create`}
-        className="row justify-content-center m-4"
-      >
-        <button
-          className="btn btn-secondary text-wrap"
-          style={{ width: "fit-content", paddingInline: "20px" }}
-        >
-          Create A Challenge
-        </button>
-      </Link>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`create`}
+            className="row justify-content-center m-4"
+          >
+            <button
+              className="btn btn-secondary text-wrap"
+              style={{ width: "fit-content", paddingInline: "20px" }}
+            >
+              Create A Challenge
+            </button>
+          </Link>
 
-      <div className="d-flex justify-content-center m-4">
-        <input
-          type="text"
-          className="w-50"
-          placeholder="Search for a challenge"
-          value={searchKeyword}
-          onChange={(e) => {
-            setKeyword(e.target.value);
-          }}
-        ></input>
-        <button
-          className="btn btn-outline-secondary w-10"
-          onClick={() => {
-            generateChallenge();
-            setPageNumber(1);
-          }}
-        >
-          Search
-        </button>
-      </div>
+          <div className="d-flex justify-content-center m-4">
+            <input
+              type="text"
+              className="w-50"
+              placeholder="Search for a challenge"
+              value={searchKeyword}
+              onChange={(e) => {
+                setKeyword(e.target.value);
+              }}
+            ></input>
+            <button
+              className="btn btn-outline-secondary w-10"
+              onClick={() => {
+                generateChallenge();
+                setPageNumber(1);
+              }}
+            >
+              Search
+            </button>
+          </div>
 
-      <div className="row justify-content-center">
-        <div id="challengeQuery" className="col-11 justify-content-center row">
-          {challengeList.map((challenge: ChallengeData, index) => {
-            return <SearchCard key={index} challenge={challenge} />;
-          })}
+          <div className="row m-auto justify-content-center">
+            <div
+              id="challengeQuery"
+              className="col-12 justify-content-center row"
+            >
+              {challengeList.map((challenge: ChallengeData, index) => {
+                return <SearchCard key={index} challenge={challenge} />;
+              })}
+            </div>
+
+            <PageBar
+              pageNumber={pageNumber}
+              totalChallenges={totalChallenges}
+              pageLimit={pageLimit}
+              nextPage={nextPage}
+              previousPage={previousPage}
+            />
+          </div>
         </div>
-
-        <PageBar
-          pageNumber={pageNumber}
-          totalChallenges={totalChallenges}
-          pageLimit={pageLimit}
-          nextPage={nextPage}
-          previousPage={previousPage}
-        />
       </div>
-    </>
+    </div>
   );
 }
 
