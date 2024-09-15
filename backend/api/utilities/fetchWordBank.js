@@ -3,7 +3,7 @@ var path = require("path");
 
 const wordSet = fs
   .readFileSync(
-    path.join(process.cwd(), "backend/assets/valid-wordle-words.txt")
+    path.join(process.cwd(), "backend/api/assets/valid-wordle-words.txt")
   )
   .toString("utf-8")
   .split("\n")
