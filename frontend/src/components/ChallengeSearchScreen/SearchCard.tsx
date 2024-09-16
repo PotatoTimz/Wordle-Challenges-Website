@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { ChallengeData } from "../Interfaces/ChallengeDataInterface";
 import { convertTimeStamp } from "../ChallengeMode/Utility/ConvertTimeStamp";
 import { Link } from "react-router-dom";

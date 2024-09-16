@@ -7,6 +7,7 @@ interface Props {
   pageLimit: number;
   nextPage: () => void;
   previousPage: () => void;
+  goToPage: (page: number) => void;
 }
 
 function PageBar(props: Props) {
@@ -48,16 +49,18 @@ function PageBar(props: Props) {
       </button>
       {pageNumbers.map((number: number) => {
         return (
-          <div
+          <button
             key={number}
-            className={`col text-center border-top border-bottom px-6 fs-6 ${
-              number === props.pageNumber
-                ? "bg-light border font-weight-bold"
-                : ""
+            onClick={() => {
+              props.goToPage(number);
+            }}
+            data-toggle="button"
+            className={`col text-center border ${
+              number === props.pageNumber ? "fw-bolder" : ""
             }`}
           >
             {number}
-          </div>
+          </button>
         );
       })}
       <button
