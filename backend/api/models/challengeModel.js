@@ -5,7 +5,6 @@ const challengeSchema = mongoose.Schema(
   {
     creator: {
       type: String,
-      required: true,
       minLength: [3, "Creator name must exceed 3 characters"],
       maxLength: [15, "Creator name must not exceed 15 characters"],
       default: "Anonymous",
@@ -23,7 +22,6 @@ const challengeSchema = mongoose.Schema(
     words: [
       {
         type: String,
-        required: true,
         minLength: [5, "Each word entered must be 5 characters long"],
         maxLength: [5, "Each word entered must be 5 characters long"],
         validate: {
