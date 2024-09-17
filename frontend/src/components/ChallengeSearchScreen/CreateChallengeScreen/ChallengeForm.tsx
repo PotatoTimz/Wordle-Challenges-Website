@@ -47,7 +47,7 @@ function ChallengeForm() {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row justify-content-center my-5">
         <div className="col-lg-6">
           <div className="text-end">
@@ -55,9 +55,10 @@ function ChallengeForm() {
               onClick={() => {
                 navigate("/challenge", {});
               }}
-              className="bi bi-x fs-4"
+              className="bi bi-x-circle fs-4 text-danger"
             ></i>
           </div>
+
           <form onSubmit={createChallenge}>
             <div className="form-group m-3">
               <label className="mb-2">Creator Name</label>
@@ -132,8 +133,10 @@ function ChallengeForm() {
               })}
             </div>
 
-            <div className="m-3">
+            <div className="mx-3 btn-group" role="group">
               <button
+                type="button"
+                className="btn btn-secondary"
                 onClick={(e) => {
                   e.preventDefault();
                   if (challengeWords.length < 10) {
@@ -145,6 +148,8 @@ function ChallengeForm() {
               </button>
 
               <button
+                type="button"
+                className="btn btn-secondary"
                 onClick={(e) => {
                   e.preventDefault();
                   if (challengeWords.length > 1) {
@@ -156,8 +161,14 @@ function ChallengeForm() {
               >
                 Remove Level
               </button>
+            </div>
 
-              <button type="submit">Create Challenge</button>
+            <div className="row justify-content-center mt-5">
+              <div className="col-6 text-center">
+                <button type="submit" className="btn btn-primary">
+                  Create Challenge
+                </button>
+              </div>
             </div>
           </form>
         </div>

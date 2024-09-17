@@ -9,7 +9,6 @@ import createWordle from "../WordleGame/Hooks/CreateWordle";
 import Board from "../WordleGame/GameBoard/Board";
 import Keyboard from "../WordleGame/KeyBoard/Keyboard";
 import WinLoseModal from "./Modals/WinLoseModal";
-import { NavLink } from "react-bootstrap";
 
 export const AppContext = createContext<WordleBoardContext>(defaultWordleBoard);
 
@@ -134,7 +133,8 @@ function EndlessWordle() {
       >
         {winLoseModal ? (
           <WinLoseModal
-            toggle={toggleWinLoseModal}
+            toggleModal={toggleWinLoseModal}
+            isOpen={winLoseModal}
             outcome={gameOutcome}
             sessionInfo={sessionStats}
             resetGame={resetGame}
@@ -142,7 +142,7 @@ function EndlessWordle() {
         ) : null}
         <Board />
         <Keyboard />
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center my-4">
           {gameComplete && (
             <button
               type="button"

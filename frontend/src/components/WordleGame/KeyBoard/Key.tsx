@@ -54,7 +54,11 @@ function Key(props: Props) {
           onClick={selectLetter}
           id={`keyboard-button-${props.keyValue}`}
         >
-          {props.keyValue}
+          {props.keyValue === "ENTER" ? (
+            <i className="bi bi-arrow-return-right"></i>
+          ) : (
+            <i className="bi bi-backspace-fill"></i>
+          )}
         </div>
       ) : (
         <div

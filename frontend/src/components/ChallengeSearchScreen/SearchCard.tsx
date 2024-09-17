@@ -8,7 +8,7 @@ interface Props {
 
 function SearchCard(props: Props) {
   return (
-    <div className="bg-light shadow col-lg-3 col-xs-12 col-sm-12 col-md-5 mx-3 my-2 p-4 rounded border border-secondary">
+    <div className="bg-light shadow col-xl-3 col-lg-4 col-xs-12 col-sm-12 col-md-5 mx-3 my-2 p-4 rounded border border-secondary">
       <h2 className="text-center fs-3 fw-bolder text-wrap">
         {props.challenge.name}
       </h2>

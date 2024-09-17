@@ -2,7 +2,7 @@ import Title from "./components/Navbar/Title";
 import { Routes, Route } from "react-router-dom";
 import ChallengeWordle from "./components/ChallengeMode/ChallengeWordle";
 import SearchScreen from "./components/ChallengeSearchScreen/ChallengeSearchScreen";
-import ChallengeForm from "./components/CreateChallengeScreen/ChallengeForm";
+import ChallengeForm from "./components/ChallengeSearchScreen/CreateChallengeScreen/ChallengeForm";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import EndlessWordle from "./components/EndlessMode/EndlessWordle";
 

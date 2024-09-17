@@ -56,7 +56,7 @@ function SearchScreen() {
   }, [pageNumber]);
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <h1 className="text-center fs-1 m-2 mb-4">Select a Challenge</h1>
 
       <Link
@@ -72,29 +72,33 @@ function SearchScreen() {
         </button>
       </Link>
 
-      <div className="input-group mb-5">
-        <input
-          type="text"
-          placeholder="Search for a challenge"
-          value={searchKeyword}
-          onChange={(e) => {
-            setKeyword(e.target.value);
-          }}
-          className="form-control"
-        ></input>
-        <button
-          onClick={() => {
-            generateChallenge();
-            setPageNumber(1);
-          }}
-          className="btn btn-outline-secondary w-10"
-        >
-          Search
-        </button>
+      <div className="row justify-content-center">
+        <div className="col-lg-8 col-md-9 col-sm-10 col-xs-11">
+          <div className="input-group mb-5">
+            <input
+              type="text"
+              placeholder="Search for a challenge"
+              value={searchKeyword}
+              onChange={(e) => {
+                setKeyword(e.target.value);
+              }}
+              className="form-control"
+            ></input>
+            <button
+              onClick={() => {
+                generateChallenge();
+                setPageNumber(1);
+              }}
+              className="btn btn-outline-secondary w-10"
+            >
+              Search
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="row m-auto justify-content-center">
-        <div id="challengeQuery" className="col-12 justify-content-center row">
+        <div id="challengeQuery" className="col-10 justify-content-center row">
           {challengeList.map((challenge: ChallengeData, index) => {
             return <SearchCard key={index} challenge={challenge} />;
           })}

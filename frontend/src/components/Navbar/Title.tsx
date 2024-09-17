@@ -49,21 +49,12 @@ function Title() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {showInstructionsModal && (
-        <InstructionsModal toggle={toggleModal}></InstructionsModal>
-      )}
+      <InstructionsModal
+        isOpen={showInstructionsModal}
+        toggleModal={toggleModal}
+      ></InstructionsModal>
     </>
   );
 }
 
 export default Title;
-
-// {showInstructionsModal && (
-//   <InstructionsModal toggle={toggleModal}></InstructionsModal>
-// )}
-// <div className="hud">
-//   <h1 id="game-title">WORDLE</h1>
-//   <button id="help-button" onClick={toggleModal} className="btn-modal">
-//     ?
-//   </button>
-// </div>
