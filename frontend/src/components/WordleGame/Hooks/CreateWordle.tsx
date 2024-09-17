@@ -79,7 +79,7 @@ const createWordle = (
       currentAttempt += attemptedLetter;
     }
 
-    // If the word is VALID but INCORRECT
+    // If the word is VALID
     if (wordSet.has(currentAttempt.toLowerCase())) {
       // Update Correctness Sets
       setCorrectGuessedLetters(new Set([...corrAtt, ...correctGuessedLetters]));
@@ -97,7 +97,7 @@ const createWordle = (
       });
 
       // Final Guess was wrong
-      if (attemptInfo.attemptNumber === 5) {
+      if (attemptInfo.attemptNumber === 5 && currentAttempt !== answer) {
         console.log("lose");
         onLose();
       }
